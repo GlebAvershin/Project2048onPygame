@@ -172,3 +172,52 @@ def draw_pieces(board):
                 text_rect = value_text.get_rect(center=(j * 95 + 57, i * 95 + 57))
                 screen.blit(value_text, text_rect)
                 pygame.draw.rect(screen, 'black', [j * 95 + 20, i * 95 + 20, 75, 75], 2, 5)
+run = True
+while run:
+    timer.tick(fps)
+    screen.fill('gray')
+    draw_board()
+    draw_pieces(board_values)
+    if spawn_new or init_count < 2:
+        board_values, game_over = new_pieces(board_values)
+        spawn_new = False
+        init_count += 1
+    if direction != '':
+        board_values = take_turn(direction, board_values)
+        direction = ''
+        spawn_new = True
+    if game_over:
+        draw_over()
+        if high_score > init_high:
+            file = open('high_score', 'w')
+            file.write(f'{high_score}')
+            file.close()
+            init_high = high_score
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_UP:
+                direction = 'UP'
+            elif event.key == pygame.K_DOWN:
+                direction = 'DOWN'
+            elif event.key == pygame.K_LEFT:
+                direction = 'LEFT'
+            elif event.key == pygame.K_RIGHT:
+                direction = 'RIGHT'
+
+            if game_over:
+                if event.key == pygame.K_RETURN:
+                    board_values = [[0 for _ in range(4)] for _ in range(4)]
+                    spawn_new = True
+                    init_count = 0
+                    score = 0
+                    direction = ''
+                    game_over = False
+
+    if score > high_score:
+        high_score = score
+
+    pygame.display.flip()
+pygame.quit()
