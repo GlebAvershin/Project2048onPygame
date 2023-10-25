@@ -124,3 +124,20 @@ def take_turn(direc, board):
                         board[i][3 - j + shift] = 0
                         merged[i][4 - j + shift] = True
     return board
+
+# появления в новых фигурах рандомно
+def new_pieces(board):
+    count = 0
+    full = False
+    while any(0 in row for row in board) and count < 1:
+        row = random.randint(0, 3)
+        col = random.randint(0, 3)
+        if board[row][col] == 0:
+            count += 1
+            if random.randint(1, 10) == 10:
+                board[row][col] = 4
+            else:
+                board[row][col] = 2
+    if count < 1:
+        full = True
+    return board, full
