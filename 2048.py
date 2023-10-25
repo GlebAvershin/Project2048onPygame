@@ -28,3 +28,15 @@ colors = {0: (204, 192, 179),
           'dark text': (119, 110, 101),
           'other': (0, 0, 0),
           'bg': (187, 173, 160)}
+
+# инициализация игровых переменных
+board_values = [[0 for _ in range(4)] for _ in range(4)]
+game_over = False
+spawn_new = True
+init_count = 0
+direction = ''
+score = 0
+file = open('high_score.txt', 'r')
+init_high = int(file.readline())
+file.close()
+high_score = init_high
