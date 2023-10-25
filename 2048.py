@@ -150,3 +150,25 @@ def draw_board():
     screen.blit(score_text, (10, 410))
     screen.blit(high_score_text, (10, 450))
     pass
+
+# плитки для игры
+def draw_pieces(board):
+    for i in range(4):
+        for j in range(4):
+            value = board[i][j]
+            if value > 8:
+                value_color = colors['light text']
+            else:
+                value_color = colors['dark text']
+            if value <= 2048:
+                color = colors[value]
+            else:
+                color = colors['other']
+            pygame.draw.rect(screen, color, [j * 95 + 20, i * 95 + 20, 75, 75], 0, 5)
+            if value > 0:
+                value_len = len(str(value))
+                font = pygame.font.Font('freesansbold.ttf', 48 - (5 * value_len))
+                value_text = font.render(str(value), True, value_color)
+                text_rect = value_text.get_rect(center=(j * 95 + 57, i * 95 + 57))
+                screen.blit(value_text, text_rect)
+                pygame.draw.rect(screen, 'black', [j * 95 + 20, i * 95 + 20, 75, 75], 2, 5)
