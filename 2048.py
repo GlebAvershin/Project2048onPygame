@@ -40,3 +40,11 @@ file = open('high_score.txt', 'r')
 init_high = int(file.readline())
 file.close()
 high_score = init_high
+
+# restart text
+def draw_over():
+    pygame.draw.rect(screen, 'black', [50, 50, 300, 100], 0, 10)
+    game_over_text1 = font.render('Game Over!', True, 'white')
+    game_over_text2 = font.render('Press Enter to Restart', True, 'white')
+    screen.blit(game_over_text1, (130, 65))
+    screen.blit(game_over_text2, (70, 105))
