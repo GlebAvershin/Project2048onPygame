@@ -141,3 +141,12 @@ def new_pieces(board):
     if count < 1:
         full = True
     return board, full
+
+# фон для доски
+def draw_board():
+    pygame.draw.rect(screen, colors['bg'], [0, 0, 400, 400], 0, 10)
+    score_text = font.render(f'Score: {score}', True, 'black')
+    high_score_text = font.render(f'High Score: {high_score}', True, 'black')
+    screen.blit(score_text, (10, 410))
+    screen.blit(high_score_text, (10, 450))
+    pass
